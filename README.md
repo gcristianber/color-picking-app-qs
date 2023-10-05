@@ -2,6 +2,14 @@
 
 Welcome to the Simple Color Picking App developed for Quickstrike Company! This easy-to-use application allows you to pick and preview colors for your projects. Follow the instructions below to set up and run the app quickly.
 
+## Screenshots
+
+- Default
+  ![default](./screenshots/default.jpg)
+
+- Color Selected
+  ![selected](./screenshots/selected.jpg)
+
 ## Getting Started
 
 ### Prerequisites
