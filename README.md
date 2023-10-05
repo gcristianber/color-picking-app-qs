@@ -5,10 +5,32 @@ Welcome to the Simple Color Picking App developed for Quickstrike Company! This 
 ## Screenshots
 
 - Default
-  ![default](./screenshots/default.jpg)
+  ![default](./screenshots/default-v2.jpg)
 
 - Color Selected
-  ![selected](./screenshots/selected.jpg)
+  ![selected](./screenshots/selected-v2.jpg)
+
+- Hover Preview Selected
+  ![hover-preview](./screenshots/hover-preview-v2.jpg)
+
+- Success backdrop
+  ![success-backdrop](./screenshots/success-backdrop-v2.jpg)
+
+## Changelogs
+
+### Changes:
+
+- Changed the user interface
+
+#### Added:
+
+- Added a clipboard function
+- Added backdrop success
+- Added backdrop component
+
+### Removed:
+
+- Button component removed
 
 ## Getting Started
 

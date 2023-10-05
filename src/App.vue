@@ -1,19 +1,15 @@
 <template>
-  <div class="container mx-auto">
-    <h1 class="text-xl/10 font-bold">Colors:</h1>
-    <div class="flex gap-5">
-      <ul class="flex-1 overflow-y-scroll max-h-screen">
-        <li v-for="color in colors" :key="color.id"
-          class="p-2 flex items-center justify-between first:rounded-t-lg last:rounded-b-lg border border-gray-300">
-          <p>{{ color.name }}</p>
-          <Button :colorPick="color.id" @picked-color="previewColor" />
-        </li>
-      </ul>
-      <div class="flex-1">
-        <ColorPreview :picked="picked" />
-      </div>
+  <div class="lg:container mx-auto">
+    <header class="my-5 text-center">
+      <h1 class="text-xl font-semibold text-slate-700">Color Picking App - Quickstrike</h1>
+      <p class="text-gray-500">Made with <span class=" text-rose-500">&#9825;</span></p>
+    </header>
+    <div class="flex flex-col gap-5">
+      <ColorPreview :picked="picked" @clipboard="getClipboard" />
+      <ColorList :list="colors" @picked-color="previewColor" />
     </div>
   </div>
+  <Backdrop :properties="showBackdrop" :picked="picked" />
 </template>
 
 <script>
@@ -21,14 +17,16 @@
 import axios from 'axios'
 
 // Importing components
+import ColorList from './components/ColorList.vue';
 import ColorPreview from './components/ColorPreview.vue';
-import Button from './components/Button.vue';
+import Backdrop from './components/Backdrop.vue';
 
 export default {
   components: {
     // Register components
+    ColorList,
     ColorPreview,
-    Button
+    Backdrop
   },
   data() {
     return {
@@ -36,6 +34,13 @@ export default {
       colors: [],
       // Container for selected color to preview
       picked: [],
+      showBackdrop: {
+        toggle: false,
+        backdropColor: {
+          text: null,
+          color: null,
+        }
+      },
     }
   },
   created() {
@@ -62,6 +67,38 @@ export default {
         return element.id == colorId
       })
 
+    },
+    getTextColor(hex) {
+      // Check if hex is defined
+      if (hex) {
+        // Convert the hex color code to RGB
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+
+        // Calculate the relative luminance to determine text color
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        // Return a suitable text color based on luminance
+        return luminance > 0.5 ? '#000000' : '#FFFFFF'; // Black for light backgrounds, white for dark backgrounds
+      }
+      // If hex is not defined, return a default text color
+      return '#000000';
+    },
+    getClipboard(data) {
+      if (!data) return
+
+      // Convert data as a string
+      let json = JSON.stringify(data)
+      this.showBackdrop.backdropColor.text = data.name
+      this.showBackdrop.backdropColor.color = data.hex_code
+      this.showBackdrop.toggle = true
+      navigator.clipboard.writeText(json)
+
+      // Show the backdrop for 1.25 seconds
+      setTimeout(() => {
+        this.showBackdrop.toggle = false; // Revert showBackdrop to false after the specified interval
+      }, 1250);
     }
   }
 }
