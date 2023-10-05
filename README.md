@@ -22,7 +22,7 @@ Welcome to the Simple Color Picking App developed for Quickstrike Company! This 
 
 - Changed the user interface
 
-#### Added:
+### Added:
 
 - Added a clipboard function
 - Added backdrop success
@@ -80,9 +80,15 @@ This command will start a development server, and you should see a message indic
 
 2. You will see the Color Picking App interface, where you can select and preview colors for your projects.
 
-3. The color list will show in your screen, each of them has a preview button that you can click.
+3. The color list will show in your screen, you can click each color to preview.
 
 4. The selected color will be displayed in the preview area along with its Name, HEX and Color Code.
+
+5. You can copy the data of the color as a JSON
+   
+   ```json
+   {"name":"Black","hex_code":"0e0e0e","color_code":"B"}
+   ```
 
 ## Additional Notes
 
